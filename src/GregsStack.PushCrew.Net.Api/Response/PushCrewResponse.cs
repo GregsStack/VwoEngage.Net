@@ -1,6 +1,6 @@
 namespace GregsStack.PushCrew.Net.Api.Response
 {
-    public class Response
+    public class PushCrewResponse
     {
         public Status Status { get; set; }
 

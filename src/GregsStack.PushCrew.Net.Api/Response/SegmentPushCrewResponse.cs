@@ -2,7 +2,7 @@ namespace GregsStack.PushCrew.Net.Api.Response
 {
     using System.Collections.Generic;
 
-    public class SegmentResponse : Response
+    public class SegmentPushCrewResponse : PushCrewResponse
     {
         public long Count { get; set; }
 
