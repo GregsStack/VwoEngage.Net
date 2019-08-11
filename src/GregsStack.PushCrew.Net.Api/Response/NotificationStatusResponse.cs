@@ -1,8 +1,6 @@
 ﻿namespace GregsStack.PushCrew.Net.Api.Response
 {
-    using System.Net.Http.Formatting;
-
-    public class NotificationRequestStatusResponse : PushCrewResponse
+    public class NotificationStatusResponse : PushCrewResponse
     {
         public long CountClicked { get; set; }
         public long CountDelivered { get; set; }

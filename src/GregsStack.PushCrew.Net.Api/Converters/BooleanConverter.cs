@@ -8,7 +8,7 @@
     {
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
-            writer.WriteValue(((bool) value) ? 1 : 0);
+            writer.WriteValue((bool)value ? 1 : 0);
         }
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
@@ -18,7 +18,7 @@
 
         public override bool CanConvert(Type objectType)
         {
-            return objectType == typeof(bool);
+            return (objectType.IsGenericType && objectType.GetGenericTypeDefinition() == typeof(Nullable<>) ? Nullable.GetUnderlyingType(objectType) : objectType) == typeof(bool);
         }
     }
 }

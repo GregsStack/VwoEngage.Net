@@ -3,7 +3,7 @@ namespace GregsStack.PushCrew.Net.Api.Response
     using System;
     using System.Collections.Generic;
 
-    public class SubscriberPushCrewResponse : PushCrewResponse
+    public class SubscriberResponse : PushCrewResponse
     {
         public long CountActive { get; set; }
 
