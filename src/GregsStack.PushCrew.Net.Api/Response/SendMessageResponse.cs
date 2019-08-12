@@ -1,6 +1,6 @@
 ﻿namespace GregsStack.PushCrew.Net.Api.Response
 {
-    public class SendMessageResponse : PushCrewResponse
+    public class SendMessageResponse : StatusResponse
     {
         /// <summary>
         /// To identify the push notification request number sent by you to our API.

@@ -1,6 +1,6 @@
 ﻿namespace GregsStack.PushCrew.Net.Api.Response
 {
-    public class ScheduleMessageResponse : PushCrewResponse
+    public class ScheduleMessageResponse : StatusResponse
     {
         /// <summary>
         /// An integer sent to identify the scheduling request sent by you to our API.

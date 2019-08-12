@@ -1,11 +1,16 @@
-namespace GregsStack.PushCrew.Net.Api.Response
+﻿namespace GregsStack.PushCrew.Net.Api.Response
 {
-    using System.Collections.Generic;
-
-    public class SegmentResponse : PushCrewResponse
+    public class SegmentResponse : StatusResponse
     {
-        public long Count { get; set; }
+        /// <summary>
+        /// To identify the segment newly created.
+        /// The same ID is used to add/remove subscribers to/from the segment through the API.
+        /// </summary>
+        public string SegmentId { get; set; }
 
-        public ICollection<Segment> SegmentList { get; set; } = new List<Segment>();
+        /// <summary>
+        /// Present in case of failure. Used to denote reason of failure.
+        /// </summary>
+        public string Message { get; set; }
     }
 }

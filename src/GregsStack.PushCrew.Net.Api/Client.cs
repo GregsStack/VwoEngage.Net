@@ -39,7 +39,6 @@
 
             this.baseUri = baseUri ?? throw new ArgumentNullException(nameof(baseUri));
 
-
             var contractResolver = new DefaultContractResolver { NamingStrategy = new SnakeCaseNamingStrategy() };
             this.jsonFormatter = new JsonMediaTypeFormatter
             {
@@ -56,17 +55,13 @@
         public async Task<SendMessageResponse> SendAllSubscribers(SendMessageRequest request)
         {
             var uri = new Uri(this.baseUri, "send/all");
-            var response = await this.client.PostAsync(uri, request.ToFormUrlEncodedContent());
-            await this.VerifyResponse(response);
-            return await this.ReadAsAsync<SendMessageResponse>(response);
+            return await this.PostAsync<SendMessageRequest, SendMessageResponse>(request, uri);
         }
 
         public async Task<SendMessageResponse> SendSubscribersInSegment(SendMessageRequest request, long segmentId)
         {
             var uri = new Uri(this.baseUri, $"send/segment/{segmentId}");
-            var response = await this.client.PostAsync(uri, request.ToFormUrlEncodedContent());
-            await this.VerifyResponse(response);
-            return await this.ReadAsAsync<SendMessageResponse>(response);
+            return await this.PostAsync<SendMessageRequest, SendMessageResponse>(request, uri);
         }
 
         public async Task<SendMessageResponse> SendSubscribers(SendMessageRequest request, ICollection<string> subscriberList)
@@ -79,9 +74,7 @@
             var subscriberRequest = (SendMessageSubscribersRequest)validRequest;
             subscriberRequest.SubscriberList = JsonConvert.SerializeObject(subscribers);
 
-            var response = await this.client.PostAsync(uri, subscriberRequest.ToFormUrlEncodedContent());
-            await this.VerifyResponse(response);
-            return await this.ReadAsAsync<SendMessageResponse>(response);
+            return await this.PostAsync<SendMessageSubscribersRequest, SendMessageResponse>(subscriberRequest, uri);
         }
 
         public async Task<SendMessageResponse> SendSubscriber(SendMessageRequest request, string subscriberId)
@@ -93,51 +86,102 @@
             var subscriberRequest = (SendMessageSubscriberRequest)validRequest;
             subscriberRequest.SubscriberId = validSubscriberId;
 
-            var response = await this.client.PostAsync(uri, subscriberRequest.ToFormUrlEncodedContent());
-            await this.VerifyResponse(response);
-            return await this.ReadAsAsync<SendMessageResponse>(response);
+            return await this.PostAsync<SendMessageSubscriberRequest, SendMessageResponse>(subscriberRequest, uri);
         }
 
         public async Task<NotificationStatusResponse> CheckNotificationRequestStatus(string id)
         {
             var uri = new Uri(this.baseUri, $"checkstatus/{id}");
-            var response = await this.client.GetAsync(uri);
-            return await this.ReadAsAsync<NotificationStatusResponse>(response);
+            return await this.GetAsync<NotificationStatusResponse>(uri);
         }
 
-
-        public async Task<PushCrewResponse> ScheduleAllSubscribers(ScheduleMessageRequest request)
+        public async Task<ScheduleMessageResponse> ScheduleAllSubscribers(ScheduleMessageRequest request)
         {
             var uri = new Uri(this.baseUri, "send/all");
-            var response = await this.client.PostAsync(uri, request.ToFormUrlEncodedContent());
-            return await this.ReadAsAsync<NotificationStatusResponse>(response);
+            return await this.PostAsync<ScheduleMessageRequest, ScheduleMessageResponse>(request, uri);
         }
 
-        public async Task<PushCrewResponse> AddSegment(string name)
+        public async Task<ScheduleMessageResponse> ScheduleSegment(ScheduleMessageRequest request, string segmentId)
+        {
+            var uri = new Uri(this.baseUri, $"send/segment/{segmentId}");
+            return await this.PostAsync<ScheduleMessageRequest, ScheduleMessageResponse>(request, uri);
+        }
+
+        public async Task<SegmentResponse> AddSegment(string name)
         {
             var uri = new Uri(this.baseUri, "segments");
             var dict = new Dictionary<string, string> { { "name", name } };
-            var response = await this.client.PostAsync(uri, dict, new FormUrlEncodedMediaTypeFormatter());
-            return await this.ReadAsAsync<PushCrewResponse>(response);
+            return await this.PostAsync<Dictionary<string, string>, SegmentResponse>(dict, uri);
         }
 
-        public async Task<PushCrewResponse> RemoveSubscribers(long segmentId, RemoveSubscriberRequest removeSubscriberRequest)
+        public async Task<SegmentsResponse> ListSegments()
+        {
+            var uri = new Uri(this.baseUri, "segments");
+            return await this.GetAsync<SegmentsResponse>(uri);
+        }
+
+        public async Task<SegmentResponse> AddSubscribersToSegment(string segmentId, ICollection<string> subscriberList)
+        {
+            var uri = new Uri(this.baseUri, $"segments/{segmentId}/subscribers");
+
+            var validSubscriberList = subscriberList ?? throw new ArgumentNullException(nameof(subscriberList));
+            var subscribers = new Dictionary<string, ICollection<string>> { { "subscriber_list", validSubscriberList } };
+            var subscriberRequest = new SendMessageSubscribersRequest
+            {
+                SubscriberList = JsonConvert.SerializeObject(subscribers)
+            };
+
+            return await this.PostAsync<SendMessageSubscribersRequest, SegmentResponse>(subscriberRequest, uri);
+        }
+
+        public async Task<SubscribersResponse> ListSubscribersInSegment(string segmentId, int page = 1, int perPage = 1024)
+        {
+            var uri = new Uri(this.baseUri, $"segments/{segmentId}/subscribers?page={page}&per_page={perPage}");
+            return await this.GetAsync<SubscribersResponse>(uri);
+        }
+
+        public async Task<SubscribersResponse> ListSegmentsOfSubscriber(string subscriberId)
+        {
+            var uri = new Uri(this.baseUri, $"subscribers/{subscriberId}/segments");
+            return await this.GetAsync<SubscribersResponse>(uri);
+        }
+
+        public async Task<StatusResponse> RemoveSubscribers(long segmentId, RemoveSubscriberRequest removeSubscriberRequest)
         {
             var uri = new Uri(this.baseUri, $"segments/{segmentId}/subscribers");
             var response = await this.client.PutAsync(uri, removeSubscriberRequest, this.jsonFormatter);
-            return await this.ReadAsAsync<PushCrewResponse>(response);
+            await this.VerifyResponse(response);
+            return await this.ReadAsAsync<StatusResponse>(response);
         }
 
-        public async Task<PushCrewResponse> DeleteSegment(long segmentId)
+        public async Task<StatusResponse> DeleteSegment(long segmentId)
         {
             var uri = new Uri(this.baseUri, $"segments/{segmentId}");
             var response = await this.client.DeleteAsync(uri);
-            return await this.ReadAsAsync<PushCrewResponse>(response);
+            await this.VerifyResponse(response);
+            return await this.ReadAsAsync<StatusResponse>(response);
         }
 
         public void Dispose()
         {
             this.client?.Dispose();
+        }
+
+        private async Task<TResponse> PostAsync<TRequest, TResponse>(TRequest request, Uri uri)
+            where TRequest : class
+            where TResponse : class
+        {
+            var response = await this.client.PostAsync(uri, request.ToFormUrlEncodedContent());
+            await this.VerifyResponse(response);
+            return await this.ReadAsAsync<TResponse>(response);
+        }
+
+        private async Task<TResponse> GetAsync<TResponse>(Uri uri)
+            where TResponse : class
+        {
+            var response = await this.client.GetAsync(uri);
+            await this.VerifyResponse(response);
+            return await this.ReadAsAsync<TResponse>(response);
         }
 
         private async Task VerifyResponse(HttpResponseMessage response)
