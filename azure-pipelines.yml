@@ -65,7 +65,8 @@ steps:
 - powershell: |
     $testsDirectory = Join-Path -Path '$(Build.SourcesDirectory)' -ChildPath 'tests'
     $coverageFile = Get-ChildItem -Path "$testsDirectory" -Recurse -File -Filter 'coverage.xml' | Select-Object -First 1
-    & "$ENV:USERPROFILE\.nuget\packages\codecov\1.7.1\tools\codecov.exe" -f "$($coverageFile.FullName)" -t '$(CODECOV_TOKEN)'
+    $codecovExecutable = Get-ChildItem -Path "$ENV:USERPROFILE\.nuget\packages\codecov" -Recurse -File -Filter "codecov.exe" | Sort-Object -Descending -Property FullName | Select-Object -First 1
+    & "$($codecovExecutable.FullName)" -f "$($coverageFile.FullName)" -t '$(CODECOV_TOKEN)'
   displayName: 'Upload coverage to codecov.io'
 
 - task: DotNetCoreCLI@2
