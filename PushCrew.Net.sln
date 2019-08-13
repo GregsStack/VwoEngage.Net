@@ -13,14 +13,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GregsStack.PushCrew.Net.Api
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{45050F49-6359-48E6-B1D1-CBF29026D8D8}"
 	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
 		.gitignore = .gitignore
+		azure-pipelines.yml = azure-pipelines.yml
+		GitVersion.yml = GitVersion.yml
 		LICENSE = LICENSE
 		README.md = README.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tools", "tools", "{130AB2DF-DA26-436C-AEE2-B644473D3AD4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GregsStack.NuGet.Tools", "tools\GregsStack.NuGet.Tools\GregsStack.NuGet.Tools.csproj", "{1597AD92-5743-46A3-9E09-7F91BA6FDC89}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GregsStack.NuGet.Tools", "tools\GregsStack.NuGet.Tools\GregsStack.NuGet.Tools.csproj", "{1597AD92-5743-46A3-9E09-7F91BA6FDC89}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
