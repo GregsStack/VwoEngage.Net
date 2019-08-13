@@ -208,10 +208,10 @@
             }
         }
 
-        private async Task<T> ReadAsAsync<T>(HttpResponseMessage response)
-            where T : class
+        private async Task<TResponse> ReadAsAsync<TResponse>(HttpResponseMessage response)
+            where TResponse : class
         {
-            return await response.Content.ReadAsAsync<T>(new[] { this.jsonFormatter });
+            return await response.Content.ReadAsAsync<TResponse>(new[] { this.jsonFormatter });
         }
     }
 }
