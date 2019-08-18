@@ -3,6 +3,8 @@
     using System;
     using System.Runtime.Serialization;
 
+    using Extensions;
+
     public class PushCrewException : Exception
     {
         /// <summary>Initializes a new instance of the <see cref="PushCrewException" /> class with serialized data.</summary>
@@ -11,7 +13,7 @@
         /// <exception cref="ArgumentNullException">The <paramref name="info" /> parameter is null.</exception>
         /// <exception cref="SerializationException">The class name is null or <see cref="Exception.HResult" /> is zero (0).</exception>
         public PushCrewException(SerializationInfo info, StreamingContext context)
-            : base(info.GetString("message"))
+            : base(info.GetSafeString("message") ?? info.GetSafeString("error"))
         {
         }
     }
