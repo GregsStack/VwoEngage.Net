@@ -16,7 +16,7 @@
             return validatedServiceCollection.AddHttpClient(PushCrewConfiguration.ClientName, client =>
             {
                 client.BaseAddress = PushCrewConfiguration.BaseUri;
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("key", validatedApiToken);
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(validatedApiToken);
             });
         }
     }
