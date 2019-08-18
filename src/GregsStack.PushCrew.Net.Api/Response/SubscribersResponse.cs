@@ -3,6 +3,8 @@ namespace GregsStack.PushCrew.Net.Api.Response
     using System;
     using System.Collections.Generic;
 
+    using Models;
+
     public class SubscribersResponse : StatusResponse
     {
         /// <summary>

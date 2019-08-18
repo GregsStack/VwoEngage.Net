@@ -1,4 +1,4 @@
-﻿namespace GregsStack.PushCrew.Net.Api
+﻿namespace GregsStack.PushCrew.Net.Api.Response.Models
 {
     using System;
     using System.Net;
@@ -37,7 +37,7 @@
         public string Platform { get; set; }
 
         /// <summary>
-        /// Value can be <see cref="Api.DevicePlatform.Desktop"/> / <see cref="Api.DevicePlatform.Mobile"/>.
+        /// Value can be <see cref="Models.DevicePlatform.Desktop"/> / <see cref="Models.DevicePlatform.Mobile"/>.
         /// Depending upon the device from which the subscriber subscribed.
         /// </summary>
         public DevicePlatform DevicePlatform { get; set; }

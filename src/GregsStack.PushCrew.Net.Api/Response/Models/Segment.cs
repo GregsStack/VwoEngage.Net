@@ -1,4 +1,4 @@
-namespace GregsStack.PushCrew.Net.Api
+namespace GregsStack.PushCrew.Net.Api.Response.Models
 {
     using System;
 

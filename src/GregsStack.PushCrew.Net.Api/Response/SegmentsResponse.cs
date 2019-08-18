@@ -2,6 +2,8 @@ namespace GregsStack.PushCrew.Net.Api.Response
 {
     using System.Collections.Generic;
 
+    using Models;
+
     public class SegmentsResponse : StatusResponse
     {
         /// <summary>
