@@ -90,7 +90,7 @@
             return await this.PostAsync<ScheduleMessageRequest, ScheduleMessageResponse>(request, relativeUri);
         }
 
-        public async Task<ScheduleMessageResponse> ScheduleSegmentAsync(ScheduleMessageRequest request, string segmentId)
+        public async Task<ScheduleMessageResponse> ScheduleSegmentAsync(ScheduleMessageRequest request, long segmentId)
         {
             var relativeUri = $"send/segment/{segmentId}";
             return await this.PostAsync<ScheduleMessageRequest, ScheduleMessageResponse>(request, relativeUri);
@@ -109,7 +109,7 @@
             return await this.GetAsync<SegmentsResponse>(relativeUri);
         }
 
-        public async Task<SegmentResponse> AddSubscribersToSegmentAsync(string segmentId, ICollection<string> subscriberList)
+        public async Task<SegmentResponse> AddSubscribersToSegmentAsync(long segmentId, ICollection<string> subscriberList)
         {
             var relativeUri = $"segments/{segmentId}/subscribers";
 
@@ -123,7 +123,7 @@
             return await this.PostAsync<SendMessageSubscribersRequest, SegmentResponse>(subscriberRequest, relativeUri);
         }
 
-        public async Task<SubscribersResponse> ListSubscribersInSegmentAsync(string segmentId, int page = 1, int perPage = 1024)
+        public async Task<SubscribersResponse> ListSubscribersInSegmentAsync(long segmentId, int page = 1, int perPage = 1024)
         {
             var relativeUri = $"segments/{segmentId}/subscribers?page={page}&per_page={perPage}";
             return await this.GetAsync<SubscribersResponse>(relativeUri);

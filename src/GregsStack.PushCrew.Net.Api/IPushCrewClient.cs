@@ -15,11 +15,11 @@
         Task<SendMessageResponse> SendSubscriberAsync(SendMessageRequest request, string subscriberId);
         Task<NotificationStatusResponse> CheckNotificationRequestStatusAsync(string id);
         Task<ScheduleMessageResponse> ScheduleAllSubscribersAsync(ScheduleMessageRequest request);
-        Task<ScheduleMessageResponse> ScheduleSegmentAsync(ScheduleMessageRequest request, string segmentId);
+        Task<ScheduleMessageResponse> ScheduleSegmentAsync(ScheduleMessageRequest request, long segmentId);
         Task<SegmentResponse> AddSegmentAsync(string name);
         Task<SegmentsResponse> ListSegmentsAsync();
-        Task<SegmentResponse> AddSubscribersToSegmentAsync(string segmentId, ICollection<string> subscriberList);
-        Task<SubscribersResponse> ListSubscribersInSegmentAsync(string segmentId, int page = 1, int perPage = 1024);
+        Task<SegmentResponse> AddSubscribersToSegmentAsync(long segmentId, ICollection<string> subscriberList);
+        Task<SubscribersResponse> ListSubscribersInSegmentAsync(long segmentId, int page = 1, int perPage = 1024);
         Task<SubscribersResponse> ListSegmentsOfSubscriberAsync(string subscriberId);
         Task<StatusResponse> RemoveSubscribersAsync(long segmentId, RemoveSubscriberRequest removeSubscriberRequest);
         Task<StatusResponse> DeleteSegmentAsync(long segmentId);

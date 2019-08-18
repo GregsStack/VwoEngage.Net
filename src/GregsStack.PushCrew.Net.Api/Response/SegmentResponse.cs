@@ -6,7 +6,7 @@
         /// To identify the segment newly created.
         /// The same ID is used to add/remove subscribers to/from the segment through the API.
         /// </summary>
-        public string SegmentId { get; set; }
+        public long SegmentId { get; set; }
 
         /// <summary>
         /// Present in case of failure. Used to denote reason of failure.

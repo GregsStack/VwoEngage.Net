@@ -4,11 +4,11 @@ namespace GregsStack.PushCrew.Net.Api.Response.Models
 
     public class Segment
     {
-        public string Id { get; set; }
+        public long Id { get; set; }
 
         public string Name { get; set; }
 
-        public Segment(string id, string name)
+        public Segment(long id, string name)
         {
             this.Id = id;
             this.Name = name ?? throw new ArgumentNullException(nameof(name));
