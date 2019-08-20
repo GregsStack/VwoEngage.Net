@@ -35,55 +35,38 @@
             this.jsonFormatter.SerializerSettings.Converters.Add(new BooleanConverter());
         }
 
-        private HttpClient CreateClient()
-        {
-            return this.clientFactory.CreateClient(PushCrewConfiguration.ClientName);
-        }
-
         private async Task<TResponse> DeleteAsync<TResponse>(string requestUri)
-            where TResponse : class
-        {
-            var client = this.CreateClient();
-            using (var response = await client.DeleteAsync(requestUri))
-            {
-                await this.VerifyResponse(response);
-                return await this.ReadAsAsync<TResponse>(response);
-            }
-        }
+            where TResponse : class =>
+            await this.ExecuteAsync<TResponse>(httpClient => httpClient.DeleteAsync(requestUri));
 
         private async Task<TResponse> GetAsync<TResponse>(string requestUri)
-            where TResponse : class
-        {
-            var client = this.CreateClient();
-            using (var response = await client.GetAsync(requestUri))
-            {
-                await this.VerifyResponse(response);
-                return await this.ReadAsAsync<TResponse>(response);
-            }
-        }
+            where TResponse : class =>
+            await this.ExecuteAsync<TResponse>(httpClient => httpClient.GetAsync(requestUri));
 
         private async Task<TResponse> PostAsync<TRequest, TResponse>(TRequest request, string requestUri)
             where TRequest : class
+            where TResponse : class =>
+            await this.ExecuteAsync<TResponse>(httpClient => httpClient.PostAsync(requestUri, request.ToFormUrlEncodedContent()));
+
+        private async Task<TResponse> PutAsync<TRequest, TResponse>(TRequest request, string requestUri)
+            where TRequest : class
+            where TResponse : class =>
+            await this.ExecuteAsync<TResponse>(httpClient => httpClient.PutAsync(requestUri, request, this.jsonFormatter));
+
+        private async Task<TResponse> ExecuteAsync<TResponse>(Func<HttpClient, Task<HttpResponseMessage>> requestAsync)
             where TResponse : class
         {
             var client = this.CreateClient();
-            using (var response = await client.PostAsync(requestUri, request.ToFormUrlEncodedContent()))
+            using (var response = await requestAsync(client))
             {
                 await this.VerifyResponse(response);
                 return await this.ReadAsAsync<TResponse>(response);
             }
         }
 
-        private async Task<TResponse> PutAsync<TRequest, TResponse>(TRequest request, string requestUri)
-            where TRequest : class
-            where TResponse : class
+        private HttpClient CreateClient()
         {
-            var client = this.CreateClient();
-            using (var response = await client.PutAsync(requestUri, request, this.jsonFormatter))
-            {
-                await this.VerifyResponse(response);
-                return await this.ReadAsAsync<TResponse>(response);
-            }
+            return this.clientFactory.CreateClient(PushCrewConfiguration.ClientName);
         }
 
         private async Task VerifyResponse(HttpResponseMessage response)
