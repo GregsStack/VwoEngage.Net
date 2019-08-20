@@ -20,13 +20,13 @@
             return await this.PostAsync<SendMessageRequest, SendMessageResponse>(request, relativeUri);
         }
 
-        public async Task<SendMessageResponse> SendSubscribersInSegmentAsync(SendMessageRequest request, long segmentId)
+        public async Task<SendMessageResponse> SendSubscribersInSegmentAsync(long segmentId, SendMessageRequest request)
         {
             var relativeUri = $"{SendRelativeUri}/segment/{segmentId}";
             return await this.PostAsync<SendMessageRequest, SendMessageResponse>(request, relativeUri);
         }
 
-        public async Task<SendMessageResponse> SendSubscribersAsync(SendMessageRequest request, ICollection<string> subscriberList)
+        public async Task<SendMessageResponse> SendSubscribersAsync(ICollection<string> subscriberList, SendMessageRequest request)
         {
             var relativeUri = $"{SendRelativeUri}/list";
 
@@ -39,7 +39,7 @@
             return await this.PostAsync<SendMessageSubscribersRequest, SendMessageResponse>(subscriberRequest, relativeUri);
         }
 
-        public async Task<SendMessageResponse> SendSubscriberAsync(SendMessageRequest request, string subscriberId)
+        public async Task<SendMessageResponse> SendSubscriberAsync(string subscriberId, SendMessageRequest request)
         {
             var relativeUri = $"{SendRelativeUri}/individual";
 
@@ -57,7 +57,7 @@
             return await this.PostAsync<ScheduleMessageRequest, ScheduleMessageResponse>(request, relativeUri);
         }
 
-        public async Task<ScheduleMessageResponse> ScheduleSegmentAsync(ScheduleMessageRequest request, long segmentId)
+        public async Task<ScheduleMessageResponse> ScheduleSegmentAsync(long segmentId, ScheduleMessageRequest request)
         {
             var relativeUri = $"{SendRelativeUri}/segment/{segmentId}";
             return await this.PostAsync<ScheduleMessageRequest, ScheduleMessageResponse>(request, relativeUri);

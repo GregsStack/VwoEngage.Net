@@ -20,10 +20,7 @@
             return await this.PostAsync<Dictionary<string, string>, SegmentResponse>(dict, SegmentsRelativeUri);
         }
 
-        public async Task<SegmentsResponse> ListSegmentsAsync()
-        {
-            return await this.GetAsync<SegmentsResponse>(SegmentsRelativeUri);
-        }
+        public async Task<SegmentsResponse> ListSegmentsAsync() => await this.GetAsync<SegmentsResponse>(SegmentsRelativeUri);
 
         public async Task<SegmentResponse> AddSubscribersToSegmentAsync(long segmentId, ICollection<string> subscriberList)
         {
@@ -45,10 +42,10 @@
             return await this.GetAsync<SubscribersResponse>(relativeUri);
         }
 
-        public async Task<StatusResponse> RemoveSubscribersAsync(long segmentId, RemoveSubscriberRequest removeSubscriberRequest)
+        public async Task<StatusResponse> RemoveSubscribersAsync(long segmentId, RemoveSubscriberRequest request)
         {
             var relativeUri = $"{SegmentsRelativeUri}/{segmentId}/subscribers";
-            return await this.PutAsync<RemoveSubscriberRequest, StatusResponse>(removeSubscriberRequest, relativeUri);
+            return await this.PutAsync<RemoveSubscriberRequest, StatusResponse>(request, relativeUri);
         }
 
         public async Task<StatusResponse> DeleteSegmentAsync(long segmentId)
