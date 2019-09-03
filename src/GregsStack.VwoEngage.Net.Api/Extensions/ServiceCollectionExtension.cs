@@ -9,7 +9,7 @@
 
     public static class ServiceCollectionExtension
     {
-        public static IHttpClientBuilder AddPushCrewHttpClient([ValidatedNotNull] this IServiceCollection serviceCollection, [ValidatedNotNull] string apiToken)
+        public static IHttpClientBuilder AddVwoEngageHttpClient([ValidatedNotNull] this IServiceCollection serviceCollection, [ValidatedNotNull] string apiToken)
         {
             var validatedServiceCollection = serviceCollection ?? throw new ArgumentNullException(nameof(serviceCollection));
             var validatedApiToken = apiToken ?? throw new ArgumentNullException(nameof(apiToken));

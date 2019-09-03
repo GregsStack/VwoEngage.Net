@@ -17,7 +17,7 @@
         {
             var di = new ServiceCollection();
 
-            di.AddPushCrewHttpClient("BadToken");
+            di.AddVwoEngageHttpClient("BadToken");
             di.AddTransient<IVwoEngageClient, VwoEngageClient>();
 
             var serviceProvider = di.BuildServiceProvider();

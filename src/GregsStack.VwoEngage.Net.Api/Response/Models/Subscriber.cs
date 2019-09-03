@@ -12,7 +12,7 @@
 
         /// <summary>
         /// The IP Address of the subscriber. Can be in IPV4/IPV6.
-        /// PushCrew masks certain octets (depending upon the format) by default in the IP Address to make sure that the IP address cannot be used to personally identify a subscriber.
+        /// VWO Engage masks certain octets (depending upon the format) by default in the IP Address to make sure that the IP address cannot be used to personally identify a subscriber.
         /// </summary>
         public IPAddress IpAddress { get; set; }
 
@@ -77,7 +77,6 @@
         /// Field which denotes if subscriber is a ghost.
         /// Ghosts is a terminology for subscribers whom we're not able to reach.
         /// <c>True</c> stands for unsubscribed and <c>false</c> stands for subscribed.
-        /// For more information on ghosts, please refer to: https://pushcrew.com/blog/product-announcement-improving-website-browser-push-notifications-delivery-rate/
         /// </summary>
         public bool IsGhost { get; set; }
 
