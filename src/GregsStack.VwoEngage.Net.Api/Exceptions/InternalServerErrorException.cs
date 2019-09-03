@@ -7,9 +7,9 @@
 
     using Response.Models;
 
-    public class InternalServerErrorException : PushCrewException
+    public class InternalServerErrorException : VwoEngageException
     {
-        /// <inheritdoc cref="PushCrewException" />
+        /// <inheritdoc cref="VwoEngageException" />
         public InternalServerErrorException(SerializationInfo info, StreamingContext context)
             : base(info, context)
         {

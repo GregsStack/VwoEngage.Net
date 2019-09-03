@@ -18,11 +18,11 @@
             var di = new ServiceCollection();
 
             di.AddPushCrewHttpClient("BadToken");
-            di.AddTransient<IPushCrewClient, PushCrewClient>();
+            di.AddTransient<IVwoEngageClient, VwoEngageClient>();
 
             var serviceProvider = di.BuildServiceProvider();
 
-            var client = serviceProvider.GetRequiredService<IPushCrewClient>();
+            var client = serviceProvider.GetRequiredService<IVwoEngageClient>();
             await Assert.ThrowsAsync<UnauthorizedException>(() => client.DeleteSegmentAsync(123));
         }
     }

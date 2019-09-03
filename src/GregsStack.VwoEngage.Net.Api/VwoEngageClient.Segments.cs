@@ -10,7 +10,7 @@
 
     using Response;
 
-    public partial class PushCrewClient
+    public partial class VwoEngageClient
     {
         private const string SegmentsRelativeUri = "segments";
 

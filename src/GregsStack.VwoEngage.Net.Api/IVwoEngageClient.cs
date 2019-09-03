@@ -7,7 +7,7 @@
 
     using Response;
 
-    public interface IPushCrewClient
+    public interface IVwoEngageClient
     {
         Task<SendMessageResponse> SendAllSubscribersAsync(SendMessageRequest request);
         Task<SendMessageResponse> SendSubscribersInSegmentAsync(long segmentId, SendMessageRequest request);

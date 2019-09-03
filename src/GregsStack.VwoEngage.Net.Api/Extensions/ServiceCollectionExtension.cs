@@ -13,9 +13,9 @@
         {
             var validatedServiceCollection = serviceCollection ?? throw new ArgumentNullException(nameof(serviceCollection));
             var validatedApiToken = apiToken ?? throw new ArgumentNullException(nameof(apiToken));
-            return validatedServiceCollection.AddHttpClient(PushCrewConfiguration.ClientName, client =>
+            return validatedServiceCollection.AddHttpClient(VwoEngageConfiguration.ClientName, client =>
             {
-                client.BaseAddress = PushCrewConfiguration.BaseUri;
+                client.BaseAddress = VwoEngageConfiguration.BaseUri;
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(validatedApiToken);
             });
         }

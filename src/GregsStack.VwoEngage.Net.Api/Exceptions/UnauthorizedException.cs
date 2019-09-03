@@ -2,9 +2,9 @@
 {
     using System.Runtime.Serialization;
 
-    public class UnauthorizedException : PushCrewException
+    public class UnauthorizedException : VwoEngageException
     {
-        /// <inheritdoc cref="PushCrewException" />
+        /// <inheritdoc cref="VwoEngageException" />
         public UnauthorizedException(SerializationInfo info, StreamingContext context)
             : base(info, context)
         {

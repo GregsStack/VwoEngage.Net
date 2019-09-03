@@ -13,12 +13,12 @@
     using Newtonsoft.Json.Converters;
     using Newtonsoft.Json.Serialization;
 
-    public partial class PushCrewClient : IPushCrewClient
+    public partial class VwoEngageClient : IVwoEngageClient
     {
         private readonly IHttpClientFactory clientFactory;
         private readonly JsonMediaTypeFormatter jsonFormatter;
 
-        public PushCrewClient(IHttpClientFactory httpClientFactory)
+        public VwoEngageClient(IHttpClientFactory httpClientFactory)
         {
             this.clientFactory = httpClientFactory ?? throw new ArgumentNullException(nameof(httpClientFactory));
 
@@ -66,7 +66,7 @@
 
         private HttpClient CreateClient()
         {
-            return this.clientFactory.CreateClient(PushCrewConfiguration.ClientName);
+            return this.clientFactory.CreateClient(VwoEngageConfiguration.ClientName);
         }
 
         private async Task VerifyResponse(HttpResponseMessage response)

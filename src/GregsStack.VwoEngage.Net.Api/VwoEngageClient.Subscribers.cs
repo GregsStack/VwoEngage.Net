@@ -4,7 +4,7 @@
 
     using Response;
 
-    public partial class PushCrewClient
+    public partial class VwoEngageClient
     {
         public async Task<SubscribersResponse> ListSegmentsOfSubscriberAsync(string subscriberId)
         {

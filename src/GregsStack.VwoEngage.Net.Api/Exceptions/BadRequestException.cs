@@ -8,9 +8,9 @@
 
     using Response.Models;
 
-    public class BadRequestException : PushCrewException
+    public class BadRequestException : VwoEngageException
     {
-        /// <inheritdoc cref="PushCrewException" />
+        /// <inheritdoc cref="VwoEngageException" />
         public BadRequestException(SerializationInfo info, StreamingContext context)
             : base(info, context)
         {
