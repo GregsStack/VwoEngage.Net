@@ -1,0 +1,23 @@
+version: 2
+updates:
+- package-ecosystem: nuget
+  directory: "/"
+  schedule:
+    interval: daily
+    time: "04:00"
+  open-pull-requests-limit: 10
+  ignore:
+  - dependency-name: altcover
+    versions:
+    - 7.6.812
+    - 8.0.815
+    - 8.0.816
+    - 8.1.817
+    - 8.1.819
+  - dependency-name: Microsoft.NET.Test.Sdk
+    versions:
+    - 16.8.3
+    - 16.9.1
+  - dependency-name: Codecov
+    versions:
+    - 1.12.4
